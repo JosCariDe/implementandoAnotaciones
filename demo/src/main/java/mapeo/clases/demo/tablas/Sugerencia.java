@@ -15,15 +15,12 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class Sugerencia {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long idSugerencia;
-    private String descripcionSugerencia;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String descripcion;
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createAtSugerencia;
-
+    private LocalDateTime createdAt;
     @ManyToOne
-    @JoinColumn(name = "idUsuario", nullable = false)
-    private Usuario usuarioSugerencia;
-
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuarios;
 }

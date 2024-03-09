@@ -15,35 +15,28 @@ import java.util.List;
 @Getter
 public class Usuario {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long idUsuario;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String nombre;
+    private String apellido;
     @Column(unique = true, nullable = false)
-    private String usernameUsuario;
+    private String username;
+    private String password;
     @Column(unique = true)
-    private String emailUsuario;
-    private String nombresUsuario;
-    private String apellidosUsuario;
-    private Integer edadUsuario;
-    private String  passwordUsuario;
-    private String repPasswordUsuario;
-    private Boolean enabledUsuario;
-    private String fotoUsuario;
-    private String rolUsuario;
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime ceateAtUsuario;
+    private String email;
 
-    @OneToMany(mappedBy = "idMensaje", fetch = FetchType.EAGER)
-    private List<Mensaje> mensajesUsuario;
+    @OneToMany(mappedBy = "usuarios")
+    private List<Sugerencia> sugerencias;
 
-    @OneToMany(mappedBy = "idSugerencia", fetch = FetchType.EAGER)
-    private List<Sugerencia> sugerenciasUsuario;
+    @ManyToMany
+    @JoinTable(name="usuarios_partidas",
+            joinColumns= @JoinColumn( name="idUsuario",
+                    referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn( name="idPartida",
+                    referencedColumnName="id"))
 
-    @JoinTable(
-            name = "usuarios_partida", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_partida", referencedColumnName = "idPartida")
-    )
-    private List<Partida> partidasUsuario;
-
-
+    private List<Partida> partidas;
+    @OneToMany(mappedBy = "usuario")
+    private List<Mensaje> mensajes;
 
 }

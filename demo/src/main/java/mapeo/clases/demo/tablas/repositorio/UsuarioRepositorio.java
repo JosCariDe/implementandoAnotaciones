@@ -9,9 +9,11 @@ import java.util.List;
 public interface UsuarioRepositorio extends JpaRepository<Usuario , Long> {
 
     Usuario save(Usuario usuario);
-    List<Usuario> findByUsernameUsuarioOrEmailUsuario(String username, String email);
+    List<Usuario> findByUsernameOrEmail(String username, String email);
 
-    void deleteByIdUsuario(Integer idUsuario);
+    List<Usuario> findByNombreAndApellido(String nombre, String apellido);
+
+    //void deleteByIdUsuario(Long idUsuario);
 
     // Listar todos los usuarios
     List<Usuario> findAll();

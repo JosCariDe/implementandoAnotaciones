@@ -23,18 +23,18 @@ class UsuarioRepositorioTest extends AbstractIntegrationDBTest{
 
     void initMockUsuarios(){
         Usuario usuario = Usuario.builder()
-                .nombresUsuario("Jose")
-                .apellidosUsuario("Narvaez")
-                .usernameUsuario("Joscari")
-                .passwordUsuario("4545")
+                .nombre("Jose")
+                .apellido("Narvaez")
+                .username("Joscari")
+                .password("4545")
                 .build();
         usuarioRepositorio.save(usuario);
 
         Usuario usuario2 = Usuario.builder()
-                .nombresUsuario("Jose")
-                .apellidosUsuario("Narvaez")
-                .usernameUsuario("Joscari")
-                .passwordUsuario("4545")
+                .nombre("Jose")
+                .apellido("Narvaez")
+                .username("Joscari")
+                .password("4545")
                 .build();
         usuarioRepositorio.save(usuario2);
         usuarioRepositorio.flush();
@@ -52,15 +52,15 @@ class UsuarioRepositorioTest extends AbstractIntegrationDBTest{
     void givenAnUser_whenSave_thenUserwithId(){
         //given
         Usuario usuario = Usuario.builder()
-                .nombresUsuario("Jose")
-                .apellidosUsuario("Narvaez")
-                .usernameUsuario("Joscari")
-                .passwordUsuario("4545")
+                .nombre("Jose")
+                .apellido("Narvaez")
+                .username("Joscari")
+                .password("4545")
                 .build();
         //when
         Usuario userSaved = usuarioRepositorio.save(usuario);
         //then
-        assertThat(userSaved.getIdUsuario()).isNotNull();
+        assertThat(userSaved.getId()).isNotNull();
 
     }
     @Test
@@ -68,18 +68,18 @@ class UsuarioRepositorioTest extends AbstractIntegrationDBTest{
     void shouldGetAllUsers(){
         //GIVEN
         Usuario usuario = Usuario.builder()
-                .nombresUsuario("Jose")
-                .apellidosUsuario("Narvaez")
-                .usernameUsuario("Joscari")
-                .passwordUsuario("4545")
+                .nombre("Jose")
+                .apellido("Narvaez")
+                .username("Joscari")
+                .password("4545")
                 .build();
         usuarioRepositorio.save(usuario);
 
         Usuario usuario2 = Usuario.builder()
-                .nombresUsuario("Jose")
-                .apellidosUsuario("Narvaez")
-                .usernameUsuario("Joscari")
-                .passwordUsuario("4545")
+                .nombre("Jose")
+                .apellido("Narvaez")
+                .username("Josc")
+                .password("4545")
                 .build();
         usuarioRepositorio.save(usuario2);
         usuarioRepositorio.flush();
@@ -92,21 +92,21 @@ class UsuarioRepositorioTest extends AbstractIntegrationDBTest{
     @Test
     void givenUsuarios_whenBuscarPorNombreyApellido_thenObtienesUnaListaDeUsuarios(){
         Usuario usuario = Usuario.builder()
-                .nombresUsuario("Jose")
-                .apellidosUsuario("Narvaez")
-                .usernameUsuario("Joscari")
-                .passwordUsuario("4545")
+                .nombre("Jose")
+                .apellido("Narvaez")
+                .username("Joscari")
+                .password("4545")
                 .build();
         usuarioRepositorio.save(usuario);
         Usuario usuario2 = Usuario.builder()
-                .nombresUsuario("Jose")
-                .apellidosUsuario("Narvaez")
-                .usernameUsuario("Joscari")
-                .passwordUsuario("4545")
+                .nombre("Jose")
+                .apellido("Narvaez")
+                .username("Josca")
+                .password("4545")
                 .build();
-        usuarioRepositorio.save(usuario);
+        usuarioRepositorio.save(usuario2);
 
-        List<Usuario> usuarios = usuarioRepositorio.findByUsernameUsuarioOrEmailUsuario("Jose", "Narvaez");
+        List<Usuario> usuarios = usuarioRepositorio.findByUsernameOrEmail("Jose", null);
 
         assertThat(usuarios).isNotEmpty();
         assertThat(usuarios).first().hasFieldOrPropertyWithValue("nombre","Jose");

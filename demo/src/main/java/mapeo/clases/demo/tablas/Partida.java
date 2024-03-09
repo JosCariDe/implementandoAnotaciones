@@ -3,9 +3,10 @@ package mapeo.clases.demo.tablas;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
+
 import java.time.LocalDateTime;
-import java.util.Collection;
+
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -17,27 +18,21 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Partida {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
-    private Long idPartida;
-    private String creadorPartida;
-    private String deportePartida;
-    private String ciudadPartida;
-    private String provinciaPartida;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String creador;
+    private String ciudad;
+    private String deporte;
+    private String provincia;
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime fechaPartida;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime horaComienzoPartida;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime horaFinalPartida;
-    private Integer participantesPartida;
-    private Integer suplentesPartida;
-    private String comentariosPartida;
-
-    @ManyToMany(mappedBy = "partidasUsuario")
-    private List<Usuario> usuariosPartida;
-
-
+    private LocalDateTime fecha;
+    @Temporal(TemporalType.TIME)
+    private LocalTime horaComienzo;
+    @Temporal(TemporalType.TIME)
+    private LocalTime horaFinal;
+    private Integer participantes;
+    private Integer suplentes;
+    private String comentarios;
+    @ManyToMany(mappedBy = "partidas")
+    private List<Usuario> usuarios;
 }

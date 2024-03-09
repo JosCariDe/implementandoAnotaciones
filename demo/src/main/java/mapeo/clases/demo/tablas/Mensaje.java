@@ -14,17 +14,15 @@ import java.util.Collection;
 @Getter
 @Builder
 public class Mensaje {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long idMensaje;
-    private String creadorMensaje;
-    private String destinarioMensaje;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String creador;
+    private String destinario;
+    private String contenido;
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createAtMensaje;
-    private String contenidoMensaje;
-
+    private LocalDateTime createAt;
     @ManyToOne
-    @JoinColumn(name = "idUsuario", nullable = false)
-    private Usuario usuarioMensaje;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
 }

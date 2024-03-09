@@ -1,5 +1,6 @@
 package mapeo.clases.demo.tablas.repositorio;
 
+import jakarta.persistence.Id;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import mapeo.clases.demo.tablas.Mensaje;
 import mapeo.clases.demo.tablas.Usuario;
@@ -9,15 +10,14 @@ import java.util.List;
 
 public interface MensajeRepositorio extends JpaRepository<Mensaje, Long> {
     // Encontrar un mensaje por su ID
-    List<Mensaje> findByIdMensaje(Integer idMensaje);
 
     // Guardar un mensaje (Crear o Actualizar)
     Mensaje save(Mensaje mensaje);
 
     // Eliminar un mensaje por su ID
-    void deleteByIdMensaje(Integer idMensaje);
+    //void deleteByIdMensaje(Long idMensaje);
 
-    List<Mensaje> findByCreadorMensaje(String creador);
+    List<Mensaje> findByCreador(String creador);
 
     // Listar todos los mensajes
     List<Mensaje> findAll();

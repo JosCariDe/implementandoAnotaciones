@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SugerenciaRepositorio extends JpaRepository<Sugerencia,Long> {
-    List<Sugerencia> findByIdSugerencia(Integer id);
-    List<Sugerencia> deleteByIdSugerencia(Integer id);
+    //List<Sugerencia> findByIdSugerencia(Long id);
+    //List<Sugerencia> deleteByIdSugerencia(Long id);
 
     Sugerencia save(Sugerencia partida);
 

@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface PartidaRepositorio extends JpaRepository<Partida,Long> {
     // Encontrar una partida por su ID
-    List<Partida> findByIdPartida(Integer idPartida);
+    //List<Partida> findByIdPartida(Long idPartida);
 
     // Guardar una partida (Crear o Actualizar)
     Partida save(Partida partida);
 
     // Eliminar una partida por su ID
-    void deleteByIdPartida(Integer idPartida);
+    //void deleteByIdPartida(Long idPartida);
 
     // Listar todas las partidas
     List<Partida> findAll();

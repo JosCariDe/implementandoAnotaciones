@@ -1,6 +1,7 @@
 package mapeo.clases.demo.tablas.repositorio;
 
 import mapeo.clases.demo.tablas.Mensaje;
+import mapeo.clases.demo.tablas.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ class MensajeRepositorioTest extends AbstractIntegrationDBTest{
 
     @Autowired
     private MensajeRepositorio mensajeRepositorio;
+    Usuario usuario = new Usuario();
 
     @Autowired
     public MensajeRepositorioTest(MensajeRepositorio mensajeRepository) {
@@ -23,34 +25,40 @@ class MensajeRepositorioTest extends AbstractIntegrationDBTest{
     }
 
     void initMockMensajes(){
-        // Inicializa tus mensajes aquí
+        Mensaje mensaje = Mensaje.builder()
+                .creador("Creador")
+                .destinario("Destinatario")
+                .contenido("Contenido del mensaje")
+                .creador("Manuel")
+                .usuario(usuario)
+                .build();
+        mensajeRepositorio.save(mensaje);
     }
 
     @BeforeEach
     void setUp() {
-        // Limpia la base de datos antes de cada prueba
         mensajeRepositorio.deleteAll();
     }
 
     @Test
-    void givenMensaje_whenSave_thenMensajeWithId(){
+    void dadoMensajesAlBuscarPorCreador_entoncesObtenerListaDeMensajes(){
         //given
         Mensaje mensaje = Mensaje.builder()
-                .creadorMensaje("Creador")
-                .destinarioMensaje("Destinatario")
-                .createAtMensaje(LocalDateTime.now())
-                .contenidoMensaje("Contenido del mensaje")
-                .creadorMensaje("Manuel")
+                .creador("Creador")
+                .destinario("Destinatario")
+                .contenido("Contenido del mensaje")
+                .creador("Manuel")
+                .usuario(usuario)
                 .build();
         //when
-        Mensaje mensajeSaved = mensajeRepositorio.save(mensaje);
+        mensajeRepositorio.save(mensaje);
         //then
-        assertThat(mensajeSaved.getIdMensaje()).isNotNull();
+        assertThat(mensaje.getId()).isNotNull();
     }
 
     @Test
     @DisplayName("dado un conjunto de mensajes al buscarlos todos obtenemos la lista de los mensajes en la base de datos")
-    void shouldGetAllMensajes(){
+    void deberiaObtenerTodosLosMensajes(){
         //GIVEN
         // Inicializa y guarda tus mensajes aquí
         //WHEN
@@ -60,11 +68,11 @@ class MensajeRepositorioTest extends AbstractIntegrationDBTest{
     }
 
     @Test
-    void givenMensajes_whenBuscarPorCreador_thenObtienesUnaListaDeMensajes(){
+    void dadoMensajesAlBuscarPorCreador_entoncesObtienesListaDeMensajes(){
         //GIVEN
         // Inicializa y guarda tus mensajes aquí
         //WHEN
-        List<Mensaje> mensajes = mensajeRepositorio.findByCreadorMensaje("Manuel");
+        List<Mensaje> mensajes = mensajeRepositorio.findByCreador("Manuel");
         //THEN
         assertThat(mensajes).isNotEmpty();
         assertThat(mensajes).first().hasFieldOrPropertyWithValue("creadorMensaje",1);
