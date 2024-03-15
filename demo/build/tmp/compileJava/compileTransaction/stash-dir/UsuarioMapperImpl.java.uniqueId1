@@ -1,0 +1,78 @@
+package mapeo.clases.demo.dto.usuario;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import mapeo.clases.demo.dto.mensaje.MensajeDto;
+import mapeo.clases.demo.dto.sugerencia.SugerenciaDto;
+import mapeo.clases.demo.tablas.Partida;
+import mapeo.clases.demo.tablas.Usuario;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2024-03-15T13:55:41-0500",
+    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.5.jar, environment: Java 17.0.8 (Oracle Corporation)"
+)
+@Component
+public class UsuarioMapperImpl implements UsuarioMapper {
+
+    @Override
+    public UsuarioDto usuarioToUsuarioDto(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+
+        Long id = null;
+        String username = null;
+        String email = null;
+        String apellido = null;
+        String nombre = null;
+
+        id = usuario.getId();
+        username = usuario.getUsername();
+        email = usuario.getEmail();
+        apellido = usuario.getApellido();
+        nombre = usuario.getNombre();
+
+        List<SugerenciaDto> sugerencias = null;
+        List<MensajeDto> mensajes = null;
+        List<Partida> partidas = null;
+
+        UsuarioDto usuarioDto = new UsuarioDto( id, nombre, apellido, username, email, sugerencias, mensajes, partidas );
+
+        return usuarioDto;
+    }
+
+    @Override
+    public Usuario usuarioSaveDtoToUsuarioEntity(UsuarioToSaveDto usuarioDto) {
+        if ( usuarioDto == null ) {
+            return null;
+        }
+
+        Usuario.UsuarioBuilder usuario = Usuario.builder();
+
+        usuario.id( usuarioDto.id() );
+        usuario.nombre( usuarioDto.nombre() );
+        usuario.apellido( usuarioDto.apellido() );
+        usuario.username( usuarioDto.username() );
+        usuario.password( usuarioDto.password() );
+        usuario.email( usuarioDto.email() );
+
+        return usuario.build();
+    }
+
+    @Override
+    public List<UsuarioDto> usuariosToUsuarioDtos(List<Usuario> usuarios) {
+        if ( usuarios == null ) {
+            return null;
+        }
+
+        List<UsuarioDto> list = new ArrayList<UsuarioDto>( usuarios.size() );
+        for ( Usuario usuario : usuarios ) {
+            list.add( usuarioToUsuarioDto( usuario ) );
+        }
+
+        return list;
+    }
+}
